@@ -37,6 +37,7 @@
                         <th class="px-4 py-2">MAC</th>
                         <!-- <th class="px-4 py-2">Module type</th> -->
                         <th class="px-4 py-2">Port</th>
+                        <th class="px-4 py-2">IMEI</th>
                         <th class="px-4 py-2">Provisioning complete</th>
                         <th class="px-4 py-2">Action</th>
                     </tr>
@@ -66,6 +67,7 @@
                         <td class="border px-4 py-2">{{ $c->mac }}</td>
                         <!-- <td class="border px-4 py-2">{{ $c->model }}</td> -->
                         <td class="border px-4 py-2">PORT {{ $numerical_part }}</td>
+                        <td class="border px-4 py-2">{{ $c->post_script_output }}</td>
                         <td class="border px-4 py-2">@if ($c->provisioning_complete_at) {{ $c->provisioning_complete_at }} @else No @endif</td>
                         <td class="border px-4 py-2">
                             <button wire:click="edit({{ $c->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</button>
