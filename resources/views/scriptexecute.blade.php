@@ -78,10 +78,10 @@ sleep 0.1
 @if ( count($postinstall_scripts) )
 echo "Running post-install scripts"
 @foreach ( $postinstall_scripts as $script )
-echo "===" >> /tmp/post.log
-echo "Running post-installation script '{{ $script->name }}'" >> /tmp/post.log
-echo "===" >> /tmp/post.log
-sh -v /tmp/post-{{$script->id}}.sh >>/tmp/post.log 2>&1 @if ($script->bg) & @endif 
+#echo "===" >> /tmp/post.log
+#echo "Running post-installation script '{{ $script->name }}'" >> /tmp/post.log
+#echo "===" >> /tmp/post.log
+sh /tmp/post-{{$script->id}}.sh >>/tmp/post.log 2>&1 @if ($script->bg) & @endif 
 RETCODE=$?
 if [ $RETCODE -ne 0 ]; then
     echo "Postinstallation script failed."

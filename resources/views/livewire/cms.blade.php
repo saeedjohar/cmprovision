@@ -35,17 +35,37 @@
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2">CM serial</th>
                         <th class="px-4 py-2">MAC</th>
-                        <th class="px-4 py-2">Module type</th>
+                        <!-- <th class="px-4 py-2">Module type</th> -->
+                        <th class="px-4 py-2">Port</th>
                         <th class="px-4 py-2">Provisioning complete</th>
                         <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($CMs as $c)
+                    @php
+                        $pattern = '/(\d+)/'; // Regular expression pattern to match digits
+
+                        $pattern_ge = '/\bge(\d+)\b/'; // For 'ge' followed by a pure number
+                        $pattern_gigabit = '/gigabitEthernet\s+(\d+(?:\/\d+)*)\b/'; // For 'gigabitEthernet' followed by a number with slashes
+                        $provisioning_board = $c->provisioning_board;
+                        if (preg_match($pattern_ge, $provisioning_board, $matches)) {
+                            $numerical_port = $matches[1]; // Extracted numerical part
+                        } 
+                        elseif (preg_match($pattern_gigabit, $provisioning_board, $matches)) {
+                            // Extract the last number from the string with slashes
+                            $parts = explode('/', $matches[1]);
+                            $numerical_port = end($parts);
+                        } else {
+                            $numerical_port = "No PORT found.";
+                        }
+
+                    @endphp
                     <tr>
                         <td class="border px-4 py-2">{{ $c->serial }}</td>
                         <td class="border px-4 py-2">{{ $c->mac }}</td>
-                        <td class="border px-4 py-2">{{ $c->model }}</td>
+                        <!-- <td class="border px-4 py-2">{{ $c->model }}</td> -->
+                        <td class="border px-4 py-2">PORT {{ $numerical_part }}</td>
                         <td class="border px-4 py-2">@if ($c->provisioning_complete_at) {{ $c->provisioning_complete_at }} @else No @endif</td>
                         <td class="border px-4 py-2">
                             <button wire:click="edit({{ $c->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</button>
