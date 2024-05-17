@@ -28,7 +28,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard', ['log' => \App\Models\Cmlog::orderBy('id','desc')->limit(100)->get()] );
+    return view('dashboard', ['log' => \App\Models\Cmlog::orderBy('id','desc')->limit(25)->get()] );
 })->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->any('/cms', Cms::class)->name('cms');
