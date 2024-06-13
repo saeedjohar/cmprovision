@@ -58,7 +58,7 @@
                             $parts = explode('/', $matches[1]);
                             $numerical_port = end($parts);
                         } else {
-                            $numerical_port = "No PORT found.";
+                            $numerical_port = $c->provisioning_board;
                         }
 
                     @endphp

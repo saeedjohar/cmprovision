@@ -60,6 +60,23 @@ class ScriptExecuteController extends Controller
         {
             $switch = new EthernetSwitch($switchIpSetting->value, $switchCommunitySetting->value);
             $board = $switch->getPortNameByMac($req->query('mac'));
+
+            $pattern = '/(\d+)/'; // Regular expression pattern to match digits
+
+            $pattern_ge = '/\bge(\d+)\b/'; // For 'ge' followed by a pure number
+            $pattern_gigabit = '/gigabitEthernet\s+(\d+(?:\/\d+)*)\b/'; // For 'gigabitEthernet' followed by a number with slashes
+            $provisioning_board = $board;
+            if (preg_match($pattern_ge, $provisioning_board, $matches)) {
+                $board = $matches[1]; // Extracted numerical part
+            } 
+            elseif (preg_match($pattern_gigabit, $provisioning_board, $matches)) {
+                // Extract the last number from the string with slashes
+                $parts = explode('/', $matches[1]);
+                $board = end($parts);
+            } else {
+                $board = "No PORT found.";
+            }            
+
         }
         else if ($jumper)
         {
