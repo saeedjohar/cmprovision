@@ -37,7 +37,7 @@
                         <th class="px-4 py-2">MAC</th>
                         <!-- <th class="px-4 py-2">Module type</th> -->
                         <th class="px-4 py-2">Port</th>
-                        <th class="px-4 py-2">IMEI</th>
+                        <th class="px-4 py-2">IMEI,ICCID</th>
                         <th class="px-4 py-2">Provisioning complete</th>
                         <th class="px-4 py-2">Action</th>
                     </tr>

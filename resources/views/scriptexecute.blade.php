@@ -78,6 +78,7 @@ sleep 0.1
 @if ( count($postinstall_scripts) )
 echo "Running post-install scripts"
 @foreach ( $postinstall_scripts as $script )
+echo "," >> /tmp/post.log
 #echo "===" >> /tmp/post.log
 #echo "Running post-installation script '{{ $script->name }}'" >> /tmp/post.log
 #echo "===" >> /tmp/post.log
